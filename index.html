@@ -24,8 +24,11 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
+        
+        const nameStoraged = localStorage.getItem('name');
+        const name = prompt("Digite seu nome", nameStoraged ? nameStoraged : "");
+        localStorage.setItem("name", name);
 
-        const name = prompt("Digite seu nome", "");
         const chatRef = firebase.database().ref('chat');
 
         function setMessage() {

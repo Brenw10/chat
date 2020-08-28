@@ -39,7 +39,8 @@
 
         chatRef.on("value", function (snapshot) {
             const values = Object.values(snapshot.val());
-            const messages = values.map(x => "<li>" + x.message + "</li>").reverse();
+            const messages = values.map(x => "<li>" + x.message + "</li>")
+                .reduce((previous, current) => current + previous, "");
             document.getElementById("list").innerHTML = messages;
         });
     </script>

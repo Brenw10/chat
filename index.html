@@ -26,7 +26,7 @@
         firebase.analytics();
 
 
-        if (Notification.permission !== 'granted') Notification.requestPermission();
+        if (Notification && Notification.permission !== 'granted') Notification.requestPermission();
 
         const nameStoraged = localStorage.getItem('name');
         const name = prompt("Digite seu nome", nameStoraged ? nameStoraged : "");
@@ -53,9 +53,7 @@
             const messages = values.map(x => "<li>" + x.message + "</li>")
                 .reduce((previous, current) => current + previous, "");
             document.getElementById("list").innerHTML = messages;
-            new Notification('Chat', {
-                body: 'As mensagens do seu chat foram atualizadas!',
-            });
+            if (Notification) new Notification('Chat', { body: 'As mensagens do seu chat foram atualizadas!' });
         });
     </script>
 </head>
@@ -64,7 +62,8 @@
     <h1>Chat</h1>
     <input type="text" id="msg" style="width: 30%" />
     <input type="button" id="send" onclick="setMessage()" value="Enviar" />
-    <input type="button" id="enableNotifications" onclick="enableNotifications()" value="Habilitar Notificacoes de Mensagens" />
+    <input type="button" id="enableNotifications" onclick="enableNotifications()"
+        value="Habilitar Notificacoes de Mensagens" />
     <div id="list"></div>
 </body>
 <script>

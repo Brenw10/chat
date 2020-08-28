@@ -25,6 +25,9 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
 
+
+        if (Notification.permission !== 'granted') Notification.requestPermission();
+
         const nameStoraged = localStorage.getItem('name');
         const name = prompt("Digite seu nome", nameStoraged ? nameStoraged : "");
         localStorage.setItem("name", name);
@@ -47,6 +50,9 @@
             const messages = values.map(x => "<li>" + x.message + "</li>")
                 .reduce((previous, current) => current + previous, "");
             document.getElementById("list").innerHTML = messages;
+            new Notification('Chat', {
+                body: 'Voce tem uma novas mensagens!',
+            });
         });
     </script>
 </head>

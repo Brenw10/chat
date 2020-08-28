@@ -44,6 +44,9 @@
             document.getElementById("msg").focus();
         }
 
+        function enableNotifications() {
+            Notification.requestPermission();
+        }
 
         chatRef.on("value", function (snapshot) {
             const values = Object.values(snapshot.val());
@@ -51,7 +54,7 @@
                 .reduce((previous, current) => current + previous, "");
             document.getElementById("list").innerHTML = messages;
             new Notification('Chat', {
-                body: 'Voce tem uma novas mensagens!',
+                body: 'As mensagens do seu chat foram atualizadas!',
             });
         });
     </script>
@@ -61,6 +64,7 @@
     <h1>Chat</h1>
     <input type="text" id="msg" style="width: 30%" />
     <input type="button" id="send" onclick="setMessage()" value="Enviar" />
+    <input type="button" id="enableNotifications" onclick="enableNotifications()" value="Habilitar Notificacoes de Mensagens" />
     <div id="list"></div>
 </body>
 <script>

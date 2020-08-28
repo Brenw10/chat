@@ -34,6 +34,7 @@
                 message: name + ": " + msg,
             });
             document.getElementById("msg").value = "";
+            document.getElementById("msg").focus();
         }
 
 
@@ -51,5 +52,8 @@
     <input type="text" id="msg" /><input type="button" id="send" onclick="setMessage()" value="Enviar" />
     <div id="list"></div>
 </body>
+<script>
+    document.getElementById("msg").focus();
+</script>
 
 </html>

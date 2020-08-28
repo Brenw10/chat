@@ -1,8 +1,54 @@
 <html>
-    <head>
 
-    </head>
-    <body>
-        <h1>Chat</h1>
-    </body>
+<head>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-app.js"></script>
+
+    <!-- TODO: Add SDKs for Firebase products that you want to use
+     https://firebase.google.com/docs/web/setup#available-libraries -->
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.19.1/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        var firebaseConfig = {
+            apiKey: "AIzaSyC44NtbB4Mvwf1A0g9pTymAWPhOPoK6SJI",
+            authDomain: "chat-3dc01.firebaseapp.com",
+            databaseURL: "https://chat-3dc01.firebaseio.com",
+            projectId: "chat-3dc01",
+            storageBucket: "chat-3dc01.appspot.com",
+            messagingSenderId: "346756068060",
+            appId: "1:346756068060:web:915c6114423432d1baba19",
+            measurementId: "G-E3YTFVV9GL"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        firebase.analytics();
+
+        const name = prompt("Digite seu nome", "");
+        const chatRef = firebase.database().ref('chat');
+
+        function setMessage() {
+            const msg = document.getElementById("msg").value;
+            chatRef.push({
+                message: name + ": " + msg,
+            });
+        }
+
+
+        chatRef.on("value", function (snapshot) {
+            const values = Object.values(snapshot.val());
+            const messages = values.map(x => "<li>" + x.message + "</li>").reverse();
+            console.log(messages);
+            document.getElementById("list").innerHTML = messages;
+        });
+    </script>
+</head>
+
+<body>
+    <h1>Chat</h1>
+    <input type="text" id="msg" /><input type="button" id="send" onclick="setMessage()" value="Enviar" />
+    <div id="list"></div>
+</body>
+
 </html>

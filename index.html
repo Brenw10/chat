@@ -24,7 +24,7 @@
         // Initialize Firebase
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
-        
+
         const nameStoraged = localStorage.getItem('name');
         const name = prompt("Digite seu nome", nameStoraged ? nameStoraged : "");
         localStorage.setItem("name", name);
@@ -33,6 +33,7 @@
 
         function setMessage() {
             const msg = document.getElementById("msg").value;
+            if (!msg) return;
             chatRef.push({
                 message: name + ": " + msg,
             });
@@ -52,12 +53,20 @@
 
 <body>
     <h1>Chat</h1>
-    <input type="text" id="msg" style="width: 30%"/>
+    <input type="text" id="msg" style="width: 30%" />
     <input type="button" id="send" onclick="setMessage()" value="Enviar" />
     <div id="list"></div>
 </body>
 <script>
     document.getElementById("msg").focus();
+
+    const input = document.getElementById("msg");
+    input.addEventListener("keyup", function (event) {
+        if (event.keyCode === 13) {
+            event.preventDefault();
+            document.getElementById("send").click();
+        }
+    });
 </script>
 
 </html>

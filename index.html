@@ -54,7 +54,7 @@
             const messages = values.map(x => "<li>" + x.message + "</li>")
                 .reduce((previous, current) => current + previous, "");
             document.getElementById("list").innerHTML = messages;
-            if (!focused && Notification) new Notification('Chat', { body: 'As mensagens do seu chat foram atualizadas!' });
+            if (!focused && Notification) new Notification('Chat', { body: 'Você recebeu novas mensagens!' });
         });
 
         window.onfocus = () => focused = true;

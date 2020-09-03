@@ -25,6 +25,7 @@
         firebase.initializeApp(firebaseConfig);
         firebase.analytics();
 
+        let focused = true;
 
         if (Notification && Notification.permission !== 'granted') Notification.requestPermission();
 
@@ -53,8 +54,11 @@
             const messages = values.map(x => "<li>" + x.message + "</li>")
                 .reduce((previous, current) => current + previous, "");
             document.getElementById("list").innerHTML = messages;
-            if (Notification) new Notification('Chat', { body: 'As mensagens do seu chat foram atualizadas!' });
+            if (!focused && Notification) new Notification('Chat', { body: 'As mensagens do seu chat foram atualizadas!' });
         });
+
+        window.onfocus = () => focused = true;
+        window.onblur = () => focused = false;
     </script>
 </head>
 
